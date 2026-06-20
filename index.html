@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Paws & Claws Community 🐾</title>
+
+  <style>
+    /* GLOBAL STYLES */
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #F1E9D1; /* Soft Cream Background */
+      margin: 0;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    /* NAVIGATION BAR */
+    nav {
+      background: #2E395F; /* Deep Navy */
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    nav .logo-slot {
+      background: #D1B36F; /* Muted Gold Accent */
+      color: #2E395F; /* Deep Navy Text */
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: #F1E9D1;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav ul li a:hover {
+      color: #D1B36F;
+    }
+
+    .quiz-nav-btn {
+      background: #D1B36F;
+      color: #2E395F !important;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .quiz-nav-btn:hover {
+      background: #e2c785 !important;
+    }
+
+    /* MAIN CONTAINER SETUP */
+    header {
+      background: linear-gradient(135deg, #2E395F 0%, #425285 100%); /* Deep Navy Gradient */
+      padding: 60px 20px;
+      text-align: center;
+      color: #F1E9D1;
+    }
+
+    header h1 {
+      margin-top: 0;
+      color: #ffffff;
+    }
+
+    .section-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(46, 57, 95, 0.06);
+    }
+
+    h2 {
+      color: #2E395F;
+      border-bottom: 3px solid #D1B36F; /* Gold border accent */
+      padding-bottom: 8px;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
+
+    h3 {
+      color: #2E395F;
+    }
+
+    /* SUMMARY / HERO SECTION */
+    .summary-box {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #e3dbbe;
+    }
+
+    /* LINKS SECTION */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .link-card {
+      background: #FAF7ED; /* Light Cream Card */
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 5px solid #2E395F; /* Navy border block */
+    }
+
+    .link-card a {
+      color: #2E395F;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.2s;
+    }
+
+    .link-card a:hover {
+      color: #D1B36F;
+      text-decoration: underline;
+    }
+
+    /* VIDEO SECTION */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 25px;
+    }
+
+    @media (max-width: 500px) {
+      .video-grid { grid-template-columns: 1fr; }
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      border: none;
+    }
+
+    /* DOCUMENTS SECTION */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .doc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: #FAF7ED;
+      border-radius: 8px;
+    }
+
+    .download-btn {
+      background: #2E395F;
+      color: #F1E9D1;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .download-btn:hover {
+      background: #1f2742;
+    }
+
+    /* GALLERY WORKSPACE */
+    .gallery-upload-zone {
+      background: #FAF7ED;
+      border: 2px dashed #D1B36F;
+      padding: 20px;
+      text-align: center;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      color: #2E395F;
+    }
+
+    .gallery-grid {
+      column-count: 4;
+      column-gap: 15px;
+    }
+
+    @media (max-width: 900px) { .gallery-grid { column-count: 3; } }
+    @media (max-width: 600px) { .gallery-grid { column-count: 2; } }
+
+    .gallery-item {
+      background: white;
+      margin-bottom: 15px;
+      break-inside: avoid;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(46, 57, 95, 0.08);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .gallery-item img:hover {
+      transform: scale(1.03);
+    }
+
+    /* FORMS & INPUTS */
+    input, textarea {
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fdfdfd;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #2E395F;
+    }
+
+    button {
+      background: #2E395F;
+      color: #F1E9D1;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #1f2742;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #2E395F;
+      color: #F1E9D1;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo-slot" id="logo">
+      🐾 Paws&Claws Logo
+    </div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#links">Links</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#documents">Documents</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact Me</a></li>
+      <li><a href="quiz.html" class="quiz-nav-btn">🐱 Take Quiz</a></li>
+    </ul>
+  </nav>
+
+  <header id="home">
+    <h1>🐶 Cat & Dog Hub 🐱</h1>
+    <div class="summary-box">
+      <p>Welcome to our ultimate animal companion portal! This website serves as a cozy community space dedicated to sharing domestic pet updates, educational articles, and media feeds for both cat and dog lovers alike. Take our specialized personality quiz, watch curated care guides, or upload your favorite pet photos straight to our active gallery.</p>
+    </div>
+  </header>
+
+  <section class="section-container" id="links">
+    <h2>Useful Resources</h2>
+    <div class="links-grid">
+      <div class="link-card">
+        <a href="https://www.petmd.com" target="_blank">PetMD Health Library 🩺</a>
+        <p>An excellent comprehensive reference base offering vetted medical advice, behavioral breakdowns, and nutritional logs for both puppies and kittens.</p>
+      </div>
+      <div class="link-card">
+        <a href="https://www.aspca.org" target="_blank">ASPCA Official Portal 🐾</a>
+        <p>Learn more about regional animal rescue missions, adoption tracking, and essential guidelines on toxic food items to keep away from your pets.</p>
+      </div>
+      <div class="link-card">
+        <a href="https://www.reddit.com/r/aww/" target="_blank">The /r/aww Community 💬</a>
+        <p>A massive online forum filled with daily wholesome imagery, user-submitted pet stories, and global community connections for pet owners.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-container" id="videos">
+    <h2>Educational Videos</h2>
+    <div class="video-grid">
+      <div>
+        <h3>Essential Kitten Care Guide</h3>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/Tn3lZE0rRRI" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div>
+        <h3>Understanding Dog Body Language</h3>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/t9Z9mGAt2is" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-container" id="documents">
+    <h2>Downloadable Pet Resources</h2>
+    <p>Grab these useful printable materials to keep your pet management logs accurate:</p>
+    <div class="doc-list">
+      <div class="doc-item">
+        <span>📋 Weekly Dog Feeding & Nutrition Chart (PDF)</span>
+        <a href="#" class="download-btn">Download File</a>
+      </div>
+      <div class="doc-item">
+        <span>💉 Cat Vaccination Tracking Log Sheet (Word Doc)</span>
+        <a href="#" class="download-btn">Download File</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-container" id="gallery">
+    <h2>Pet Image Gallery</h2>
+    <p>Upload files to instantly build up your catalog of 10+ images locally.</p>
+    
+    <div class="gallery-upload-zone">
+      <label style="font-weight: bold; cursor: pointer;">
+        📸 Click here to select and upload your images
+        <input type="file" id="galleryInput" accept="image/*" multiple style="display: none;" onchange="uploadToGallery()">
+      </label>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500" alt="Cat"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=500" alt="Dog"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=500" alt="Cool Cat"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500" alt="Happy Dog"></div>
+    </div>
+  </section>
+
+  <section class="section-container" id="contact">
+    <h2>Contact Me</h2>
+    <p>Have questions or suggestions? Send a quick notification message over!</p>
+    <form onsubmit="handleContact(event)">
+      <input type="text" id="contactName" placeholder="Your Name" required>
+      <input type="email" id="contactEmail" placeholder="Your Email Address" required>
+      <textarea id="contactMessage" rows="5" placeholder="Write your message details here..." required></textarea>
+      <button type="submit">Submit Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2026 Paws & Claws Pet Hub Community. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    window.onload = function() {
+      const savedImages = JSON.parse(localStorage.getItem("galleryImages")) || [];
+      savedImages.forEach(renderGalleryImage);
+    };
+
+    function uploadToGallery() {
+      const input = document.getElementById("galleryInput");
+      if (!input.files) return;
+
+      Array.from(input.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const base64Img = e.target.result;
+          
+          const savedImages = JSON.parse(localStorage.getItem("galleryImages")) || [];
+          savedImages.push(base64Img);
+          localStorage.setItem("galleryImages", JSON.stringify(savedImages));
+
+          renderGalleryImage(base64Img);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderGalleryImage(srcString) {
+      const grid = document.getElementById("galleryGrid");
+      const item = document.createElement("div");
+      item.className = "gallery-item";
+      item.innerHTML = `<img src="${srcString}">`;
+      grid.prepend(item);
+    }
+
+    function handleContact(event) {
+      event.preventDefault();
+      alert("Thank you! Your message has been sent cleanly.");
+      document.getElementById("contactName").value = "";
+      document.getElementById("contactEmail").value = "";
+      document.getElementById("contactMessage").value = "";
+    }
+  </script>
+</body>
+</html>

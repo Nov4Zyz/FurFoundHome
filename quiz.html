@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cat Personality Quiz 🐱</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+
+    .box {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      border: none;
+      background: black;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 15px;
+      text-align: left;
+      padding-left: 20px;
+      transition: 0.1s ease;
+    }
+
+    button:hover {
+      background: #333;
+      transform: translateX(4px);
+    }
+
+    .result {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    /* STYLE FOR THE NEW BACK BUTTON */
+    .back-btn {
+      display: block;
+      text-align: center;
+      background: #ffb6c1; /* Matches your main page header color */
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 12px;
+      margin-top: 25px;
+      border-radius: 5px;
+      transition: 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: #ff99ab;
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>🐱 What Cat Are You?</h2>
+
+  <div id="quiz"></div>
+  <div class="result" id="result"></div>
+  
+  <div id="action-area"></div>
+</div>
+
+<script>
+  const questions = [
+    {
+      q: "What do you do on weekends?",
+      a: [
+        { text: "Sleep 😴", type: "lazy" },
+        { text: "Explore 🌿", type: "adventurous" },
+        { text: "Hang out 🐾", type: "social" }
+      ]
+    },
+    {
+      q: "Your vibe?",
+      a: [
+        { text: "Calm 🛋️", type: "lazy" },
+        { text: "Bold 🔥", type: "adventurous" },
+        { text: "Fun 😂", type: "social" }
+      ]
+    }
+  ];
+
+  let scores = { lazy: 0, adventurous: 0, social: 0 };
+  let current = 0;
+
+  function loadQ() {
+    if (current >= questions.length) return showResult();
+
+    const q = questions[current];
+
+    document.getElementById("quiz").innerHTML = `
+      <h3>${q.q}</h3>
+      ${q.a.map(a =>
+        `<button onclick="answer('${a.type}')">${a.text}</button>`
+      ).join("")}
+    `;
+  }
+
+  function answer(type) {
+    scores[type]++;
+    current++;
+    loadQ();
+  }
+
+  function showResult() {
+    let result = "";
+
+    if (scores.lazy >= scores.adventurous && scores.lazy >= scores.social) {
+      result = "😴 Lazy Cozy Cat";
+    } 
+    else if (scores.adventurous >= scores.social) {
+      result = "🔥 Adventurous Wild Cat";
+    } 
+    else {
+      result = "🐾 Social Chaotic Cat";
+    }
+
+    // 1. Save the result to localStorage immediately
+    localStorage.setItem("catPersonality", result);
+
+    // 2. Clear out the quiz questions
+    document.getElementById("quiz").innerHTML = "";
+    
+    // 3. Show their personality result
+    document.getElementById("result").innerText = `You are a: ${result}`;
+
+    // 4. Inject the "Go Back" button instead of using a setTimeout timer
+    document.getElementById("action-area").innerHTML = `
+      <a href="index.html" class="back-btn">🏠 Back to Cat Community</a>
+    `;
+  }
+
+  loadQ();
+</script>
+
+</body>
+</html>
